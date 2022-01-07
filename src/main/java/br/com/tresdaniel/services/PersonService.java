@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.tresdaniel.adapter.DozerAdapter;
+import br.com.tresdaniel.data.models.Person;
+import br.com.tresdaniel.data.vo.PersonVO;
 import br.com.tresdaniel.exception.ResourceNotFoundException;
-import br.com.tresdaniel.models.Person;
 import br.com.tresdaniel.request.repository.PersonRepository;
 
 @Service
@@ -15,28 +17,30 @@ public class PersonService {
 	@Autowired
 	PersonRepository repository;
 	
-	public Person create(Person person) {	
-		return repository.save(person);
+	public PersonVO create(PersonVO person) {
+		var entity = DozerAdapter.parseObject(person, Person.class);
+		return DozerAdapter.parseObject(repository.save(entity), PersonVO.class);
 	}
 	
-	public List<Person> findAll() {
-		return repository.findAll();
+	public List<PersonVO> findAll() {
+		return DozerAdapter.parseListObject(repository.findAll(), PersonVO.class);
 	}
 	
-	public Person findById(Long id) {
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+	public PersonVO findById(Long id) {
+		var entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+		return DozerAdapter.parseObject(entity, PersonVO.class);
 		
 	}
 	
-	public Person update(Person person) {
-		Person entity = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+	public PersonVO update(PersonVO person) {
+		var entity = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 		
 		entity.setFirstName(person.getFirstName());
 		entity.setLastName(person.getLastName());
 		entity.setAddress(person.getAddress());
 		entity.setGender(person.getGender());
 		
-		return repository.save(entity);
+		return DozerAdapter.parseObject(repository.save(entity), PersonVO.class);
 	}
 	
 	public void delete(Long id) {

@@ -1,4 +1,4 @@
-package br.com.tresdaniel.models;
+package br.com.tresdaniel.data.models;
 
 import java.io.Serializable;
 import java.util.Objects;
