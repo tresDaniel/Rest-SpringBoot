@@ -21,7 +21,7 @@ public class PersonService {
 		var entity = DozerAdapter.parseObject(person, Person.class);
 		return DozerAdapter.parseObject(repository.save(entity), PersonVO.class);
 	}
-	
+
 	public List<PersonVO> findAll() {
 		return DozerAdapter.parseListObject(repository.findAll(), PersonVO.class);
 	}
