@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.tresdaniel.adapter.DozerAdapter;
 import br.com.tresdaniel.data.models.Person;
-import br.com.tresdaniel.data.vo.PersonVO;
+import br.com.tresdaniel.data.vo.v1.PersonVO;
 import br.com.tresdaniel.exception.ResourceNotFoundException;
 import br.com.tresdaniel.request.repository.PersonRepository;
 
