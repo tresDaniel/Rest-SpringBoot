@@ -21,16 +21,16 @@ public class WebConfig implements WebMvcConfigurer {
 	}
 	
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS" ,"TRACE", "CONNECT");		
+		registry.addMapping("/**")
+			.allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS" ,"TRACE", "CONNECT");		
 	}
 	
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 		configurer.favorPathExtension(false)
-			.favorParameter(true)
-			.parameterName("mediaType")
+			.favorParameter(false)
 			.useRegisteredExtensionsOnly(false)
-			.ignoreAcceptHeader(true)
+			.ignoreAcceptHeader(false)
 			.defaultContentType(MediaType.APPLICATION_JSON)
 			.mediaType("json", MediaType.APPLICATION_JSON)
 			.mediaType("xml", MediaType.APPLICATION_XML)
